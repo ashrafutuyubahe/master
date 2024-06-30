@@ -1,25 +1,20 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { BookManipulateService } from 'src/book-manipulate/book-manipulate.service';
 
-Controller('getAllBooks');
+@Controller()
+
+
 export class BooksController {
-  @Get()
-  getAllBooks():object {
-   let booksArray = [
-        {
-          id: '1',
-          name: '7 atomic habits ',
-        },
-        {
-          id: '2',
-          name: ' clean code',
-        },
-        {
-          id: '3',
-          name: ' do not repeat yourself',
-        },
-      ];
-
- return booksArray
+ constructor( private readonly bookService:BookManipulateService){}
+  @Get('books')
+  findAllBooks(){
+  return this.bookService.findAllBooks;
 
   }
+
+  @Post('addBook')
+   addBook(@Body('id') id:string,@Body('name') name:string ): string{
+    return`this is the new book added ${name} with id${id}`;
+
+}
 }
