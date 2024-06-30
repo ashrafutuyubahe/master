@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { BookManipulateService } from 'src/book-manipulate/book-manipulate.service';
 
 @Controller()
@@ -15,6 +15,13 @@ export class BooksController {
   @Post('addBook')
    addBook(@Body('id') id:string,@Body('name') name:string ): string{
     return`this is the new book added ${name} with id${id}`;
+
+}
+
+@Put('id')
+removeBook(@Param('id') id:String){
+
+
 
 }
 }
