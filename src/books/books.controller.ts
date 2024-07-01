@@ -1,28 +1,34 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { BookManipulateService } from 'src/book-manipulate/book-manipulate.service';
-
-@Controller()
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { BookManipulateService } from '../book-manipulate/book-manipulate.service';
 
 
+@Controller('books')
 export class BooksController {
- constructor( private readonly bookService:BookManipulateService){}
-  @Get('books')
-  findAllBooks(){
-  return this.bookService.findAllBooks;
+  constructor(private readonly bookService: BookManipulateService) {}
 
+  @Get()
+  findAllBooks() {
+    return this.bookService.findAllBooks();
   }
 
   @Post('addBook')
-   addBook(@Body('id') id:string,@Body('name') name:string ): string{
-    this.addBook(id,name);
-    return`this is the new book added ${name} with id${id}`;
+  addBook(@Body('id') id: string, @Body('name') name: string): string {
+    this.bookService.addBooks(id, name);
+    return `This is the new book added: ${name} with id ${id}`;
+  }
 
+  @Delete('/removeBook/:id')
+  removeBook(@Param('id') id: string): string {
+    this.bookService.removeBookFromArray(id);
+    return `Book with id ${id} has been removed`;
+  }
+
+  @Put('/updateBook/')
+  updateBook(@Query('id')id:String,@Body('name') name:string):any{
+
+    this.bookService.updateBook(id,name);
+    return `the book with id ${id} has been updated  with name  of ${name}`
+
+  }
 }
 
-@Put('id')
-removeBook(@Param('id') id:String){
-
-
-
-}
-}

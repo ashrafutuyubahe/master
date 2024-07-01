@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-
-
 @Injectable()
 export class BookManipulateService {
   public booksArray = [
@@ -23,23 +21,19 @@ export class BookManipulateService {
     return this.booksArray;
   }
 
-  addBooks(id: String, name: String): any {
-    const newBooks = [id, name];
-    this.booksArray.push();
+  addBooks(id: string, name: string): void {
+    const newBook = { id, name };
+    this.booksArray.push(newBook);
   }
 
-  removeBookFromArray(id: String) {
-    this.booksArray.filter((book): object => {
-      const remainingArray = book.id ? book : null;
-      return remainingArray;
-    });
-  }
- 
-
-  updateBook(id:String,name:String):any{
-
-  const BookTobeUpdated= this.booksArray;
-
+  removeBookFromArray(id: string): void {
+      this.booksArray = this.booksArray.filter((book) => book.id !== id);
   }
 
+  updateBook(id: String, name: string): void {
+    const bookIndex = this.booksArray.findIndex((book) => book.id === id);
+    if (bookIndex !== -1) {
+      this.booksArray[bookIndex].name = name;
+    }
+  }
 }
