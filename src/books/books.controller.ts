@@ -10,6 +10,11 @@ export class BooksController {
   findAllBooks() {
     return this.bookService.findAllBooks();
   }
+  @Get('/getOneBook/:id')
+  findSingleBook(@Param('id') id:string){
+    return this.bookService.findSingleBook(id);
+
+  }
 
   @Post('addBook')
   addBook(@Body('id') id: string, @Body('name') name: string): string {
@@ -24,7 +29,7 @@ export class BooksController {
   }
 
   @Put('/updateBook/')
-  updateBook(@Query('id')id:String,@Body('name') name:string):any{
+  updateBook(@Query('id')id:string,@Body('name') name:string):any{
 
     this.bookService.updateBook(id,name);
     return `the book with id ${id} has been updated  with name  of ${name}`

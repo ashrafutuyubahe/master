@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class BookManipulateService {
@@ -20,6 +20,16 @@ export class BookManipulateService {
   findAllBooks(): any[] {
     return this.booksArray;
   }
+  
+  findSingleBook(id: string): string {
+    const theBook = this.booksArray.find((book) => book.id === id);
+  
+    if (!theBook) {
+      throw new HttpException(`The book with id ${id} is not found`, HttpStatus.NOT_FOUND);
+    }
+    return `The book you asked for is ${theBook.name}`;
+  }
+  
 
   addBooks(id: string, name: string): void {
     const newBook = { id, name };
