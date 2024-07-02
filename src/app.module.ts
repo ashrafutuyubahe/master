@@ -4,29 +4,22 @@ import { BookManipulateService } from './book-manipulate/book-manipulate.service
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 
-
-
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'mysql',
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123',
-      entities:[],
+      port: 3306,
+      username: 'root', 
+      password: '',
       database: 'first_nest_app',
+      entities: [],
       autoLoadEntities: true,
       synchronize: true,
     }),
     UserModule
   ],
   controllers: [BooksController],
-   providers: [BookManipulateService],
- 
-
-
-
+  providers: [BookManipulateService],
 })
 export class AppModule {}
