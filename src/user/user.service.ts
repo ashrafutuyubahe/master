@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { users } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityNotFoundException } from './exceptions/entity-not-found.exception';
+
 
 @Injectable()
 export class UserService {
@@ -33,7 +33,7 @@ export class UserService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     const existingUser = await this.userRepository.findOneBy({ id });
     if (!existingUser) {
-      throw new EntityNotFoundException('the user is not found');
+      throw new HttpException('the user is not found',HttpStatus.NOT_FOUND);
     }
 
     existingUser.userEmail = updateUserDto.userEmail;
@@ -42,9 +42,19 @@ export class UserService {
 
     const saveUser = await this.userRepository.save(existingUser);
     if (!saveUser) {
-      throw new EntityNotFoundException('failed to update user');
+      throw new HttpException('failed to update user',HttpStatus.BAD_REQUEST);
     }
 
     return 'user updated successfully';
   }
+
+  removeUser(id:number){
+
+    this.userRepository.delete(id);    
+  return `the user with id ${id} is deleted`
+
+
+  }
+
+  
 }
