@@ -1,12 +1,18 @@
 import {
   
-    IsEmail,
+    IsEmail,  
     IsNotEmpty,
     IsString,
     MinLength,
   } from 'class-validator';
   
   export class CreateUserDto {
+
+    @IsString()
+    @MinLength(2, { message: 'Name must have atLeast 2 characters.' })
+    @IsNotEmpty()
+    id:number;
+
     @IsString()
     @MinLength(2, { message: 'Name must have atLeast 2 characters.' })
     @IsNotEmpty()

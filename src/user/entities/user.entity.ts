@@ -1,6 +1,6 @@
 import {Column,PrimaryGeneratedColumn,Entity } from "typeorm";
 @Entity()
-export class User {
+export class users {
 @PrimaryGeneratedColumn()
 id:number;
 @Column({type:'varchar',length:30})
