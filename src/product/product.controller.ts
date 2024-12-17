@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { Product } from "./schema/product.model";
 import { ProductService } from "./product.service";
 import { get } from "http";
@@ -32,7 +32,14 @@ constructor(private readonly productService:ProductService){}
 
  }
 
+
+ @Delete('deleteProduct/:prodId') 
+ removeProduct(@Param('prodId') productId: string) {
+   return this.productService.deleteProduct(productId);
+ }
  
+
+
 
 
 }
