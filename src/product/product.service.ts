@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable, Put } from '@nestjs/common';
 import { Product } from './schema/product.model';
 
 @Injectable()
@@ -46,6 +46,8 @@ export class ProductService {
     return this.productArray;
   }
 
+
+
   async deleteProduct(productId: string) {
     const productIndex = this.productArray.findIndex(
       (product) => product.productId === productId,
@@ -63,6 +65,33 @@ export class ProductService {
     };
   }
 
+
+  async changeProduct(
+    productName: string,
+    productPrice: number,
+    productLoc: string,
+    productOwner: string,
+    productId: string
+  ) {
+   
+    const productIndex = this.productArray.findIndex((product) => product.productId === productId);
   
+    if (productIndex === -1) {
+    
+      return { message: 'Product not found' };
+    }
+  
+ 
+    this.productArray[productIndex].productLocation = productLoc;
+    this.productArray[productIndex].productName = productName;
+    this.productArray[productIndex].productOwner = productOwner;
+    this.productArray[productIndex].productPrice = productPrice;
+  
+    return { message: 'product updated successfully', newProduct: this.productArray };
+  }
+  
+
+
+
 }
 
