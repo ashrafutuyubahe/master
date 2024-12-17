@@ -4,6 +4,7 @@ import { BookManipulateService } from './book-manipulate/book-manipulate.service
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { NewSrcModule } from './new_src/new_src.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     UserModule,
-    AuthModule
+    AuthModule,
+    NewSrcModule
   ],
   controllers: [BooksController],
   providers: [BookManipulateService],
