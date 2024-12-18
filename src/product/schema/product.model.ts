@@ -1,13 +1,24 @@
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
+
+@Entity('product')
 export class Product {
-productId:string;
+
+  @PrimaryGeneratedColumn()
+productId:number;
+
+@Column()
   productName: string;
+  @Column()
   productPrice: number;
+  @Column()
   productLocation: string;
+
+  @Column()
   productOwner: string;
 
-  constructor(prodId:string,prodName:string,prodPrice:number,prodOwner:string,prodLoc:string){
-  this.productId=prodId
+  constructor(prodName:string,prodPrice:number,prodOwner:string,prodLoc:string){
+  
   this.productLocation=prodLoc;
   this.productName=prodName;
   this.productOwner=prodOwner;
